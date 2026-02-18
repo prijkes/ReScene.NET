@@ -1,0 +1,74 @@
+<ResourceDictionary xmlns="https://github.com/avaloniaui"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+
+  <!-- ═══════════════════════════════════════════════════════════
+       ReScene.NET Design Tokens
+       All app-specific values in one place. Views reference
+       these via DynamicResource so theme switching works.
+       ═══════════════════════════════════════════════════════════ -->
+
+  <!-- ── Typography ──────────────────────────────────────────── -->
+  <FontFamily x:Key="MonoFontFamily">Cascadia Mono, Consolas, Courier New, monospace</FontFamily>
+  <x:Double x:Key="MonoFontSize">12</x:Double>
+  <x:Double x:Key="SectionHeaderFontSize">12</x:Double>
+  <x:Double x:Key="StatusBarFontSize">12</x:Double>
+  <x:Double x:Key="EmptyStateFontSize">14</x:Double>
+  <x:Double x:Key="EmptyStateSubtitleFontSize">12</x:Double>
+
+  <!-- ── Spacing (8px grid) ──────────────────────────────────── -->
+  <Thickness x:Key="SpacingXS">2</Thickness>
+  <Thickness x:Key="SpacingSM">4</Thickness>
+  <Thickness x:Key="SpacingMD">8</Thickness>
+  <Thickness x:Key="SpacingLG">12</Thickness>
+  <Thickness x:Key="SpacingXL">16</Thickness>
+  <Thickness x:Key="SpacingXXL">24</Thickness>
+
+  <Thickness x:Key="PanelPadding">8</Thickness>
+  <Thickness x:Key="SectionPadding">12</Thickness>
+  <Thickness x:Key="PageMargin">16</Thickness>
+
+  <!-- Panel gap between tree filter + tree body -->
+  <Thickness x:Key="TreeFilterMargin">6,6,6,2</Thickness>
+  <Thickness x:Key="TreeViewMargin">6,0,6,6</Thickness>
+
+  <!-- ── Corner radii ───────────────────────────────────────── -->
+  <CornerRadius x:Key="SmallRadius">3</CornerRadius>
+  <CornerRadius x:Key="MediumRadius">4</CornerRadius>
+  <CornerRadius x:Key="LargeRadius">6</CornerRadius>
+
+  <!-- ── Inspector-specific colors (theme-safe) ─────────────── -->
+  <!-- Subtle tint for DataGrid rows that have byte-range mappings -->
+  <SolidColorBrush x:Key="PropertyHighlightBrush" Color="#0C0078D4" />
+
+  <!-- Hex view column header background -->
+  <SolidColorBrush x:Key="HexHeaderBrush" Color="#08000000" />
+
+  <!-- Panel border for tree / properties / hex sections -->
+  <SolidColorBrush x:Key="PanelBorderBrush" Color="#15000000" />
+
+  <!-- Status bar separator -->
+  <SolidColorBrush x:Key="StatusSeparatorBrush" Color="#20000000" />
+
+  <!-- ── Panel headers (Inspector tab) ─────────────────────── -->
+  <Thickness x:Key="PanelHeaderPadding">8,5</Thickness>
+  <SolidColorBrush x:Key="PanelHeaderSeparatorBrush" Color="#18000000" />
+
+  <!-- ── Section card (Creator tab) ─────────────────────────── -->
+  <Thickness x:Key="SectionBorderThickness">1</Thickness>
+  <Thickness x:Key="SectionCardMargin">0,0,0,8</Thickness>
+
+  <!-- ── Splitter ────────────────────────────────────────────── -->
+  <x:Double x:Key="SplitterWidth">5</x:Double>
+  <x:Double x:Key="SplitterHeight">5</x:Double>
+
+  <!-- ── Inspector tree panel ────────────────────────────────── -->
+  <x:Double x:Key="TreePanelMinWidth">220</x:Double>
+  <x:Double x:Key="TreePanelDefaultWidth">280</x:Double>
+
+  <!-- ── Home dashboard ────────────────────────────────────── -->
+  <x:Double x:Key="HomeWelcomeFontSize">22</x:Double>
+  <x:Double x:Key="HomeMaxWidth">640</x:Double>
+  <Thickness x:Key="HomeWelcomeMargin">24,0,24,24</Thickness>
+  <Thickness x:Key="HomeCardsMargin">0,24,0,24</Thickness>
+
+</ResourceDictionary>

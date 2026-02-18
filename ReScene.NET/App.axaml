@@ -1,0 +1,96 @@
+<Application xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             x:Class="ReScene.NET.App"
+             RequestedThemeVariant="Default">
+
+    <Application.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceInclude Source="avares://ReScene.NET/Resources/Tokens.axaml" />
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </Application.Resources>
+
+    <Application.Styles>
+        <FluentTheme />
+        <StyleInclude Source="avares://Avalonia.Controls.DataGrid/Themes/Fluent.xaml" />
+
+        <!-- ── Shared Styles ──────────────────────────────────── -->
+
+        <!-- Section header label (Creator tab sections) -->
+        <Style Selector="TextBlock.sectionHeader">
+          <Setter Property="FontSize" Value="{DynamicResource SectionHeaderFontSize}" />
+          <Setter Property="FontWeight" Value="SemiBold" />
+          <Setter Property="Foreground" Value="{DynamicResource SystemControlForegroundBaseMediumHighBrush}" />
+          <Setter Property="Margin" Value="0,0,0,8" />
+          <Setter Property="LetterSpacing" Value="0.6" />
+        </Style>
+
+        <!-- Section card border (Creator tab) -->
+        <Style Selector="Border.section">
+          <Setter Property="BorderBrush" Value="{DynamicResource SystemControlForegroundBaseMediumLowBrush}" />
+          <Setter Property="BorderThickness" Value="{DynamicResource SectionBorderThickness}" />
+          <Setter Property="CornerRadius" Value="{DynamicResource MediumRadius}" />
+          <Setter Property="Padding" Value="{DynamicResource SectionPadding}" />
+          <Setter Property="Margin" Value="{DynamicResource SectionCardMargin}" />
+        </Style>
+
+        <!-- Monospaced text -->
+        <Style Selector="TextBlock.mono">
+          <Setter Property="FontFamily" Value="{DynamicResource MonoFontFamily}" />
+          <Setter Property="FontSize" Value="{DynamicResource MonoFontSize}" />
+        </Style>
+
+        <!-- Panel header label (Inspector tab panels) -->
+        <Style Selector="TextBlock.panelHeader">
+          <Setter Property="FontSize" Value="{DynamicResource SectionHeaderFontSize}" />
+          <Setter Property="FontWeight" Value="SemiBold" />
+          <Setter Property="Foreground" Value="{DynamicResource SystemControlForegroundBaseMediumHighBrush}" />
+          <Setter Property="LetterSpacing" Value="0.6" />
+        </Style>
+
+        <!-- Panel header bar (border + background tint) -->
+        <Style Selector="Border.panelHeaderBar">
+          <Setter Property="Padding" Value="{DynamicResource PanelHeaderPadding}" />
+          <Setter Property="Background" Value="{DynamicResource SystemControlBackgroundListLowBrush}" />
+          <Setter Property="BorderBrush" Value="{DynamicResource PanelHeaderSeparatorBrush}" />
+          <Setter Property="BorderThickness" Value="0,0,0,1" />
+        </Style>
+
+        <!-- Subtle panel background for inspector sections -->
+        <Style Selector="Border.panelSection">
+          <Setter Property="Background" Value="{DynamicResource SystemControlBackgroundAltHighBrush}" />
+          <Setter Property="BorderBrush" Value="{DynamicResource SystemControlForegroundBaseLowBrush}" />
+          <Setter Property="BorderThickness" Value="1" />
+          <Setter Property="CornerRadius" Value="{DynamicResource SmallRadius}" />
+        </Style>
+
+        <!-- GridSplitter styling -->
+        <Style Selector="GridSplitter">
+          <Setter Property="Background" Value="Transparent" />
+        </Style>
+        <Style Selector="GridSplitter:pointerover">
+          <Setter Property="Background" Value="{DynamicResource SystemControlHighlightListLowBrush}" />
+        </Style>
+
+        <!-- Compact log ListBox items (reduced padding) -->
+        <Style Selector="ListBox.compactLog ListBoxItem">
+          <Setter Property="MinHeight" Value="20" />
+          <Setter Property="Padding" Value="4,1" />
+        </Style>
+
+        <!-- DataGrid: tighter row height for property grid -->
+        <Style Selector="DataGrid.propertyGrid DataGridRow">
+          <Setter Property="MinHeight" Value="28" />
+        </Style>
+        <Style Selector="DataGrid.propertyGrid DataGridCell">
+          <Setter Property="FontSize" Value="12" />
+        </Style>
+
+        <!-- Recent file item hover -->
+        <Style Selector="Button.recentFileItem:pointerover /template/ ContentPresenter">
+          <Setter Property="Background" Value="{DynamicResource SystemControlHighlightListLowBrush}" />
+        </Style>
+
+    </Application.Styles>
+</Application>

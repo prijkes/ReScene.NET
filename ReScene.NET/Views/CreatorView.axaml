@@ -1,0 +1,120 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:vm="using:ReScene.NET.ViewModels"
+             x:Class="ReScene.NET.Views.CreatorView"
+             x:DataType="vm:CreatorViewModel">
+
+  <ScrollViewer>
+    <StackPanel Margin="{DynamicResource PageMargin}">
+
+      <!-- INPUT -->
+      <Border Classes="section">
+        <StackPanel>
+          <TextBlock Classes="sectionHeader" Text="INPUT" />
+          <DockPanel>
+            <Button DockPanel.Dock="Right" Content="Browse..."
+                    Command="{Binding BrowseInputCommand}"
+                    Margin="8,0,0,0" />
+            <TextBox Text="{Binding InputPath}"
+                     Watermark="Select an SFV or RAR file..." />
+          </DockPanel>
+          <StackPanel Orientation="Horizontal" Margin="0,8,0,0" Spacing="16">
+            <RadioButton Content="SFV file" IsChecked="{Binding IsSfvInput}"
+                         GroupName="InputType" />
+            <RadioButton Content="First RAR file" IsChecked="{Binding !IsSfvInput}"
+                         GroupName="InputType" />
+          </StackPanel>
+        </StackPanel>
+      </Border>
+
+      <!-- STORED FILES -->
+      <Border Classes="section">
+        <StackPanel>
+          <TextBlock Classes="sectionHeader" Text="STORED FILES" />
+          <StackPanel Orientation="Horizontal" Spacing="8" Margin="0,0,0,8">
+            <Button Content="Add..." Command="{Binding AddStoredFileCommand}" />
+            <Button Content="Remove" Command="{Binding RemoveStoredFileCommand}" />
+          </StackPanel>
+          <ListBox ItemsSource="{Binding StoredFiles}"
+                   SelectedItem="{Binding SelectedStoredFile}"
+                   Height="80" />
+        </StackPanel>
+      </Border>
+
+      <!-- OUTPUT -->
+      <Border Classes="section">
+        <StackPanel>
+          <TextBlock Classes="sectionHeader" Text="OUTPUT" />
+          <DockPanel>
+            <Button DockPanel.Dock="Right" Content="Browse..."
+                    Command="{Binding BrowseOutputCommand}"
+                    Margin="8,0,0,0" />
+            <TextBox Text="{Binding OutputPath}"
+                     Watermark="Output SRR file path..." />
+          </DockPanel>
+        </StackPanel>
+      </Border>
+
+      <!-- OPTIONS -->
+      <Border Classes="section">
+        <StackPanel>
+          <TextBlock Classes="sectionHeader" Text="OPTIONS" />
+          <WrapPanel Margin="0,0,0,8">
+            <CheckBox Content="Allow compressed" IsChecked="{Binding AllowCompressed}"
+                      Margin="0,0,16,0" />
+            <CheckBox Content="Store paths" IsChecked="{Binding StorePaths}"
+                      Margin="0,0,16,0" />
+            <CheckBox Content="OSO hashes" IsChecked="{Binding ComputeOsoHashes}" />
+          </WrapPanel>
+          <DockPanel>
+            <TextBlock Text="App name:" VerticalAlignment="Center"
+                       Margin="0,0,8,0" />
+            <TextBox Text="{Binding AppName}" Width="200"
+                     HorizontalAlignment="Left" />
+          </DockPanel>
+        </StackPanel>
+      </Border>
+
+      <!-- CREATE BUTTON -->
+      <Grid ColumnDefinitions="*,Auto" Margin="0,4,0,8">
+        <Button Grid.Column="0"
+                Content="Create SRR"
+                Command="{Binding CreateSrrCommand}"
+                HorizontalAlignment="Stretch"
+                HorizontalContentAlignment="Center"
+                Height="40"
+                Classes="accent" />
+        <Button Grid.Column="1"
+                Content="Cancel"
+                Command="{Binding CancelCreationCommand}"
+                IsVisible="{Binding IsCreating}"
+                Margin="8,0,0,0"
+                Height="40" />
+      </Grid>
+
+      <!-- PROGRESS -->
+      <Border Classes="section" IsVisible="{Binding ShowProgress}">
+        <StackPanel>
+          <ProgressBar Value="{Binding ProgressPercent}"
+                       Maximum="100" Height="20"
+                       Margin="0,0,0,4" />
+          <TextBlock Text="{Binding ProgressMessage}" />
+        </StackPanel>
+      </Border>
+
+      <!-- LOG -->
+      <Border Classes="section">
+        <StackPanel>
+          <TextBlock Classes="sectionHeader" Text="LOG" />
+          <ListBox ItemsSource="{Binding LogEntries}"
+                   Classes="compactLog"
+                   Height="150"
+                   FontFamily="{DynamicResource MonoFontFamily}"
+                   FontSize="{DynamicResource MonoFontSize}" />
+        </StackPanel>
+      </Border>
+
+    </StackPanel>
+  </ScrollViewer>
+
+</UserControl>

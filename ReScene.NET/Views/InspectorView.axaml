@@ -1,0 +1,140 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:vm="using:ReScene.NET.ViewModels"
+             xmlns:controls="using:ReScene.NET.Controls"
+             x:Class="ReScene.NET.Views.InspectorView"
+             x:DataType="vm:InspectorViewModel"
+             x:Name="InspectorRoot">
+
+  <!-- ── Inspector panels ──────────────────────────────────── -->
+  <Grid ColumnDefinitions="280,Auto,*">
+
+      <!-- Left panel: Structure -->
+      <Border Grid.Column="0"
+              Classes="panelSection"
+              Margin="6,6,0,6">
+        <DockPanel>
+          <!-- Panel header -->
+          <Border DockPanel.Dock="Top" Classes="panelHeaderBar">
+            <TextBlock Classes="panelHeader" Text="STRUCTURE" />
+          </Border>
+
+          <!-- Filter box with search icon watermark -->
+          <TextBox DockPanel.Dock="Top"
+                   Text="{Binding TreeFilterText}"
+                   Watermark="Filter tree..."
+                   Margin="{DynamicResource TreeFilterMargin}"
+                   CornerRadius="{DynamicResource SmallRadius}" />
+
+          <TreeView ItemsSource="{Binding TreeRoots}"
+                    SelectedItem="{Binding SelectedTreeNode}"
+                    Margin="{DynamicResource TreeViewMargin}"
+                    FontSize="12">
+            <TreeView.ItemTemplate>
+              <TreeDataTemplate ItemsSource="{Binding Children}">
+                <TextBlock Text="{Binding Text}"
+                           IsVisible="{Binding IsVisible}"
+                           TextTrimming="CharacterEllipsis" />
+              </TreeDataTemplate>
+            </TreeView.ItemTemplate>
+            <TreeView.ContextMenu>
+              <ContextMenu>
+                <MenuItem Header="Export..."
+                          Command="{Binding #InspectorRoot.((vm:InspectorViewModel)DataContext).ExportStoredFileCommand}" />
+              </ContextMenu>
+            </TreeView.ContextMenu>
+          </TreeView>
+        </DockPanel>
+      </Border>
+
+      <!-- Splitter -->
+      <GridSplitter Grid.Column="1"
+                    Width="{DynamicResource SplitterWidth}"
+                    ResizeDirection="Columns" />
+
+      <!-- Right panel: Properties + Hex -->
+      <Grid Grid.Column="2"
+            RowDefinitions="*,Auto,*"
+            Margin="0,6,6,6">
+
+        <!-- Properties panel -->
+        <Border Classes="panelSection">
+          <DockPanel>
+            <!-- Panel header -->
+            <Border DockPanel.Dock="Top" Classes="panelHeaderBar">
+              <TextBlock Classes="panelHeader" Text="PROPERTIES" />
+            </Border>
+
+            <Grid>
+              <!-- DataGrid (always present) -->
+              <DataGrid ItemsSource="{Binding Properties}"
+                        SelectedItem="{Binding SelectedProperty}"
+                        Classes="propertyGrid"
+                        IsReadOnly="True"
+                        CanUserResizeColumns="True"
+                        CanUserReorderColumns="False"
+                        CanUserSortColumns="False"
+                        GridLinesVisibility="Horizontal"
+                        HeadersVisibility="Column"
+                        SelectionMode="Single"
+                        BorderThickness="0">
+                <DataGrid.Columns>
+                  <DataGridTextColumn Header="Property"
+                                      Binding="{Binding Name}"
+                                      Width="200" />
+                  <DataGridTextColumn Header="Value"
+                                      Binding="{Binding Value}"
+                                      Width="*" />
+                </DataGrid.Columns>
+              </DataGrid>
+
+              <!-- Empty state overlay -->
+              <TextBlock Text="Select a tree node to view properties"
+                         IsVisible="{Binding !HasProperties}"
+                         HorizontalAlignment="Center"
+                         VerticalAlignment="Center"
+                         FontSize="{DynamicResource EmptyStateFontSize}"
+                         Foreground="{DynamicResource SystemControlForegroundBaseMediumBrush}"
+                         IsHitTestVisible="False" />
+            </Grid>
+          </DockPanel>
+        </Border>
+
+        <!-- Splitter between properties and hex -->
+        <GridSplitter Grid.Row="1"
+                      Height="{DynamicResource SplitterHeight}"
+                      ResizeDirection="Rows"
+                      IsVisible="{Binding ShowHexView}" />
+
+        <!-- Hex view panel -->
+        <Border Grid.Row="2"
+                Classes="panelSection"
+                IsVisible="{Binding ShowHexView}">
+          <DockPanel>
+            <!-- Panel header with column labels -->
+            <Border DockPanel.Dock="Top" Classes="panelHeaderBar">
+              <DockPanel>
+                <TextBlock Classes="panelHeader" Text="HEX VIEW"
+                           VerticalAlignment="Center"
+                           DockPanel.Dock="Left"
+                           Margin="0,0,16,0" />
+                <TextBlock FontFamily="{DynamicResource MonoFontFamily}"
+                           FontSize="11"
+                           Foreground="{DynamicResource SystemControlForegroundBaseMediumBrush}"
+                           VerticalAlignment="Center"
+                           Text="Offset          00 01 02 03 04 05 06 07 08 09 0A 0B 0C 0D 0E 0F   ASCII" />
+              </DockPanel>
+            </Border>
+
+            <controls:HexViewControl Data="{Binding HexData}"
+                                      BlockOffset="{Binding HexBlockOffset}"
+                                      BlockLength="{Binding HexBlockLength}"
+                                      SelectionOffset="{Binding HexSelectionOffset}"
+                                      SelectionLength="{Binding HexSelectionLength}" />
+          </DockPanel>
+        </Border>
+
+      </Grid>
+  </Grid>
+
+</UserControl>

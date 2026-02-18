@@ -1,0 +1,152 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:vm="using:ReScene.NET.ViewModels"
+             xmlns:m="using:ReScene.NET.Models"
+             x:Class="ReScene.NET.Views.HomeView"
+             x:DataType="vm:HomeViewModel">
+
+  <ScrollViewer HorizontalScrollBarVisibility="Disabled"
+                VerticalScrollBarVisibility="Auto">
+    <StackPanel HorizontalAlignment="Center"
+                MaxWidth="{DynamicResource HomeMaxWidth}"
+                Margin="{DynamicResource HomeWelcomeMargin}">
+
+      <!-- ── Welcome header ──────────────────────────────────── -->
+      <StackPanel HorizontalAlignment="Center"
+                  Spacing="4"
+                  Margin="0,24,0,0">
+        <TextBlock Text="&#xE8E5;"
+                   FontFamily="{StaticResource SymbolThemeFontFamily}"
+                   FontSize="44"
+                   HorizontalAlignment="Center"
+                   Foreground="{DynamicResource SystemControlForegroundBaseMediumBrush}" />
+        <TextBlock Text="Welcome to ReScene.NET"
+                   FontSize="{DynamicResource HomeWelcomeFontSize}"
+                   FontWeight="SemiBold"
+                   HorizontalAlignment="Center" />
+        <TextBlock Text="SRR/SRS file inspector and creator"
+                   FontSize="{DynamicResource EmptyStateFontSize}"
+                   HorizontalAlignment="Center"
+                   Foreground="{DynamicResource SystemControlForegroundBaseMediumBrush}" />
+      </StackPanel>
+
+      <!-- ── Action cards ────────────────────────────────────── -->
+      <Grid ColumnDefinitions="*,16,*"
+            Margin="{DynamicResource HomeCardsMargin}">
+
+        <!-- Inspect card -->
+        <Border Grid.Column="0" Classes="section">
+          <StackPanel Spacing="8">
+            <TextBlock Text="&#xE773;"
+                       FontFamily="{StaticResource SymbolThemeFontFamily}"
+                       FontSize="28"
+                       HorizontalAlignment="Center"
+                       Foreground="{DynamicResource SystemAccentBrush}" />
+            <TextBlock Text="Inspect"
+                       FontWeight="SemiBold"
+                       FontSize="14"
+                       HorizontalAlignment="Center" />
+            <TextBlock Text="Open and explore SRR/SRS file contents"
+                       HorizontalAlignment="Center"
+                       TextAlignment="Center"
+                       Foreground="{DynamicResource SystemControlForegroundBaseMediumBrush}" />
+            <Button Content="Open..."
+                    Command="{Binding OpenInspectCommand}"
+                    HorizontalAlignment="Center"
+                    Margin="0,4,0,0"
+                    Classes="accent" />
+            <TextBlock Text="or drag and drop .srr/.srs files"
+                       FontSize="11"
+                       HorizontalAlignment="Center"
+                       Foreground="{DynamicResource SystemControlForegroundBaseMediumLowBrush}" />
+          </StackPanel>
+        </Border>
+
+        <!-- Create card -->
+        <Border Grid.Column="2" Classes="section">
+          <StackPanel Spacing="8">
+            <TextBlock Text="&#xE710;"
+                       FontFamily="{StaticResource SymbolThemeFontFamily}"
+                       FontSize="28"
+                       HorizontalAlignment="Center"
+                       Foreground="{DynamicResource SystemAccentBrush}" />
+            <TextBlock Text="Create SRR"
+                       FontWeight="SemiBold"
+                       FontSize="14"
+                       HorizontalAlignment="Center" />
+            <TextBlock Text="Create a new SRR file from RAR archives or SFV files"
+                       HorizontalAlignment="Center"
+                       TextAlignment="Center"
+                       Foreground="{DynamicResource SystemControlForegroundBaseMediumBrush}" />
+            <Button Content="Go to Creator"
+                    Command="{Binding SwitchToCreatorCommand}"
+                    HorizontalAlignment="Center"
+                    Margin="0,4,0,0" />
+          </StackPanel>
+        </Border>
+      </Grid>
+
+      <!-- ── Recent files ────────────────────────────────────── -->
+      <StackPanel IsVisible="{Binding HasRecentFiles}"
+                  Spacing="6">
+
+        <!-- Section header with Clear button -->
+        <Grid ColumnDefinitions="*,Auto">
+          <TextBlock Text="RECENT FILES"
+                     Classes="sectionHeader"
+                     VerticalAlignment="Center"
+                     Margin="0" />
+          <Button Grid.Column="1"
+                  Content="Clear"
+                  Command="{Binding ClearRecentFilesCommand}"
+                  Classes="accent"
+                  Padding="8,2"
+                  FontSize="11" />
+        </Grid>
+
+        <ItemsControl ItemsSource="{Binding RecentFiles}">
+          <ItemsControl.ItemTemplate>
+            <DataTemplate DataType="m:RecentFileEntry">
+              <Button Command="{Binding $parent[ItemsControl].((vm:HomeViewModel)DataContext).OpenRecentFileCommand}"
+                      CommandParameter="{Binding}"
+                      HorizontalAlignment="Stretch"
+                      HorizontalContentAlignment="Stretch"
+                      Background="Transparent"
+                      BorderThickness="0"
+                      Padding="8,6"
+                      Cursor="Hand"
+                      Classes="recentFileItem">
+                <Grid ColumnDefinitions="Auto,*,Auto">
+                  <TextBlock Grid.Column="0"
+                             Text="&#xE8E5;"
+                             FontFamily="{StaticResource SymbolThemeFontFamily}"
+                             FontSize="16"
+                             VerticalAlignment="Center"
+                             Margin="0,0,10,0"
+                             Foreground="{DynamicResource SystemControlForegroundBaseMediumBrush}" />
+                  <StackPanel Grid.Column="1" Spacing="1">
+                    <TextBlock Text="{Binding FileName}"
+                               FontWeight="SemiBold"
+                               FontSize="13" />
+                    <TextBlock Text="{Binding FilePath}"
+                               FontSize="11"
+                               Foreground="{DynamicResource SystemControlForegroundBaseMediumLowBrush}"
+                               TextTrimming="CharacterEllipsis" />
+                  </StackPanel>
+                  <TextBlock Grid.Column="2"
+                             Text="{Binding LastOpened, StringFormat='{}{0:yyyy-MM-dd HH:mm}'}"
+                             FontSize="11"
+                             VerticalAlignment="Center"
+                             Foreground="{DynamicResource SystemControlForegroundBaseMediumLowBrush}"
+                             Margin="12,0,0,0" />
+                </Grid>
+              </Button>
+            </DataTemplate>
+          </ItemsControl.ItemTemplate>
+        </ItemsControl>
+      </StackPanel>
+
+    </StackPanel>
+  </ScrollViewer>
+
+</UserControl>

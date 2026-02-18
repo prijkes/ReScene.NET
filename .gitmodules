@@ -1,0 +1,3 @@
+[submodule "Libraries/ReScene.LIB"]
+	path = Libraries/ReScene.LIB
+	url = https://github.com/prijkes/ReScene.LIB.git
