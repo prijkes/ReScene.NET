@@ -21,8 +21,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Libraries\ReScene.LIB\RARLib\RARLib.csproj" />
-    <ProjectReference Include="..\Libraries\ReScene.LIB\SRRLib\SRRLib.csproj" />
+    <ProjectReference Include="..\ReScene.LIB\RARLib\RARLib.csproj" />
+    <ProjectReference Include="..\ReScene.LIB\SRRLib\SRRLib.csproj" />
   </ItemGroup>
 
 </Project>
